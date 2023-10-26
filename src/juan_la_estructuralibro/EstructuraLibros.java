@@ -127,7 +127,7 @@ public class /*StructureLivres*/EstructuraLibros {
         }
     }
     
-    public void eliminarX(String title){
+    public int eliminarX(String title){
         
         if(searchTitle(title) != -1){
             
@@ -142,12 +142,12 @@ public class /*StructureLivres*/EstructuraLibros {
             index--;
             
             System.out.println("LIBRO ELIMINADO EXITOSAMENTE");
-        }else{
             
-            System.out.println("ESTE LIBRO NO SE ENCUENTRA DENTRO DEL LIBRERO");
+            return searchTitle(title);
         }
-        //buscaTitle() retorna index
-        // quita el libro y recorre el index =D
+        
+        System.out.println("ESTE LIBRO NO SE ENCUENTRA DENTRO DEL LIBRERO");
+        return -1;
     }
     
     

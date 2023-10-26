@@ -22,9 +22,6 @@ public class Librero extends javax.swing.JFrame {
     
     ArrayList <JButton> botones;
     
-    
-    
-
     public Librero() {
         
         initComponents();
@@ -33,184 +30,10 @@ public class Librero extends javax.swing.JFrame {
         
         ocultar();
         
-        // Arreglo para almacenar los botones dinámicos
-        botones = new ArrayList<JButton>(); // Esta estructura guardara los botones.
+        botones = new ArrayList<JButton>(); 
         
-        // Preparar el panel para que pueda contener n botones
         filaLibros.setLayout(new GridLayout(1, x.getIndex()));
-        
-        
-        
-        // GridLayout(se debe importar), es un contenedor con divisiones (renglones, columnas)
-        // para determinar la cantidad de columnas de la fila debemos acceder al index de la estructura datos.
     }
-    
-    // declaramos un evento para indicar la accion que debe ejecutar los botones que debe ejecutar los botones que vamos a construir 
-    // un codigo desde cero, el equivalente al acctionPerfomant que tiene los demas botones que a tenemos en la interfaz
-    
-    // Accionn o evento de los botones, usar la herramiente de autocomplemento
-    
-    
-    // A partir de aqui biene el codigo que copié xd
-    
-    
-    ActionListener evento = new ActionListener(){
-        
-        @Override
-        
-        public void actionPerformed(ActionEvent ae){
-            
-            // identifica el elemento que se presionó
-            
-            JButton botoncito = (JButton) (ae.getSource());
-            
-            String temporal = botoncito.getText();
-            Libro obj = x.buscar(temporal);
-            JOptionPane.showMessageDialog(null, obj.toString());
-
-            
-           
-            // literalmente lo unico que hace es mostrarte en pantalla los datos del libro que seleccionaste
-        }
-        
-        
-    };
-    
-    
-    
-    public void llenar(){
-        
-        try{
-            
-            filaLibros.removeAll();
-            
-            for(int i = 0; i < x.getIndex(); i++){
-                
-                botones.add(new JButton(x.getLibrero()[i].getIsbn()));
-                botones.get(botones.size() - 1).addActionListener(evento);
-                filaLibros.add(botones.get(botones.size() - 1));
-            }
-            
-            /*botones.add(new JButton(x.getLibrero()[x.getIndex() - 1].getIsbn()));
-            botones.get(botones.size() - 1).addActionListener(evento);
-            
-            
-            filaLibros.add(botones.get(botones.size() - 1));*/
-            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        
-        this.pack();
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*public void eliminarColaB(){
-        
-        try{
-            
-            filaLibros.remove(0);
-            
-            
-        }catch(){
-            
-        }
-        
-        if(botones.size() > 0){
-            
-            for(int i = 0; i < botones.size() - 1; i++){
-            
-                botones.set(i, botones.get(i + 1));
-            }
-            
-            botones.get(botones.size() - 1).setVisible(false);
-            
-            botones.remove(botones.size() - 1);
-            
-            filaLibros.repaint();
-            
-        }else{
-            
-            JOptionPane.showMessageDialog(null, "IMPOSIBLE ELIMINAR OTRO LIBRO :0");
-        }
-    }*/
-    
-    public int buscar2(String nombre){
-        
-        for(int i = 0; i < botones.size() - 1; i++){
-            
-            if(botones.get(i).equals(nombre)){
-                
-                return i;
-            }
-        }
-        
-        return -1;
-    }
-    
-    public void eliminarRecorrer(String nombre){
-        
-        
-        
-        if(buscar2(nombre) >= 0){
-            
-           for(int i = buscar2(nombre) /* aqui iria el boton que presionamos*/; i < botones.size(); i++){
-               
-               botones.set(i, botones.get(i + 1));
-           }
-           
-           botones.remove(botones.size() - 1);
-           
-           
-        }else{
-            
-            JOptionPane.showMessageDialog(null, "Por favor seleccione algun libro");
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     public void quitar(){
         
@@ -493,6 +316,7 @@ public class Librero extends javax.swing.JFrame {
         }else{
             
             String titulo = txtTitulo.getText();
+            
             int year = Integer.parseInt(txtYear.getText());
             String autor = txtAutor.getText();
             String isbn = lbISBN.getText();
@@ -503,7 +327,6 @@ public class Librero extends javax.swing.JFrame {
                 
                 reiniciar();
                 
-                // ???''
                 mostrar(x.getLibrero()[x.getIndex() - 1]);
                 
                 llenar();
@@ -514,44 +337,8 @@ public class Librero extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "¡Ya cuentas con este libro :0!");
             }
         }
-        
+
         reiniciar();
-    }
-    
-    public void buscar(){
-        
-        if(txtBusTit.getText().equalsIgnoreCase("")){
-            
-            JOptionPane.showMessageDialog(null, "Por favor, llene el campo de texto ;D");
-        }else{
-            
-            Libro[] libreroX = new Libro[x.getIndex() + 2];
-            
-            libreroX = x.getLibrero();
-            
-            int a = x.searchTitle(txtBusTit.getText());
-            
-            if(a == - 1){
-                
-                JOptionPane.showMessageDialog(null, "Usted no cuenta con el libro que está buscando :( ...");
-            }else{
-                
-                txtPosBus.setText("Posición: " + (a + 1));
-                
-                StringBuilder table = new StringBuilder();
-                
-                String t = "+------------------------------------------+--------------------------------+------+-------+\n";
-                      t += " |Titulo                                            |Autor                             |Año   |ISBN |\n";
-                      t += "+------------------------------------------+--------------------------------+------+-------+\n";
-                
-                table.append(String.format("| %-50s | %-30s | %-4d | %-5s |\n", libreroX[a].getTitre(), libreroX[a].getAuteur(), libreroX[a].getAnnée(), libreroX[a].getIsbn()));
-                
-                t += table;
-                t += "+------------------------------------------+--------------------------------+------+-------+\n";
-                
-                txtBusArea.setText(t);
-            }
-        }
     }
     
     public boolean validarX(){
@@ -570,18 +357,90 @@ public class Librero extends javax.swing.JFrame {
         return true;
     }
     
-    // WTFFFFFFFFFFFFFF
+    public void llenar(){
+        
+        try{
+            
+            filaLibros.removeAll();
+            
+            for(int i = 0; i < x.getIndex(); i++){
+                
+                botones.add(new JButton(x.getLibrero()[i].getIsbn()));
+                botones.get(botones.size() - 1).addActionListener(evento);
+                filaLibros.add(botones.get(botones.size() - 1));
+            }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        this.pack();
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    ActionListener evento = new ActionListener(){
+        
+        @Override
+        
+        public void actionPerformed(ActionEvent ae){
+            
+            // identifica el elemento que se presionó
+            
+            JButton botoncito = (JButton) (ae.getSource());
+            
+            String temporal = botoncito.getText();
+            Libro obj = x.buscar(temporal);
+            JOptionPane.showMessageDialog(null, obj.toString());
 
+            // literalmente lo unico que hace es mostrarte en pantalla los datos del libro que seleccionaste
+        }
+    };
+    
+    public void eliminarCola(){
+        
+        if(x.getIndex() > 0){
+            
+            String titulo = x.getLibrero()[0].getTitre();
+            
+            JOptionPane.showMessageDialog(null, "Libro eliminado :0" + " (" + titulo + ")");
+            
+            x.eliminarCola();
+            
+            contLibros.setText(--contador + " Libros");
+
+            llenar();
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Lo siento, usted ya no tiene libros para quitar :(");
+        }
+    }
+    
+    public void tomarLibro(){
+        
+        if(x.getIndex() > 0){
+            
+            String nombre;
+            
+            nombre = JOptionPane.showInputDialog("Por favor ingrese el título del libro que quiere borrar :)");
+            
+            if(x.searchTitle(nombre) == - 1){
+                
+                JOptionPane.showMessageDialog(null, "Usted no cuenta con el libro en cuestion =0" + "(" + nombre + ")");
+            }else{
+                
+                x.eliminarX(nombre);
+            
+                contLibros.setText(--contador + " Libros");
+
+                JOptionPane.showMessageDialog(null, "Libro eliminado :0" + "(" + nombre + ")");
+
+                llenar();
+            }
+        }else{
+
+            JOptionPane.showMessageDialog(null, "Lo siente, usted no cuenta con ningún libro para tomar :(");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1003,7 +862,7 @@ public class Librero extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        buscar();
+//        buscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1086,36 +945,12 @@ public class Librero extends javax.swing.JFrame {
 
     private void quitarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarColaActionPerformed
 
-        if(x.getIndex() > 0){
-            
-            x.eliminarCola();
-            llenar();
-        }
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // TODO add your handling code here:
+        eliminarCola();
     }//GEN-LAST:event_quitarColaActionPerformed
 
     private void tomarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tomarLibroActionPerformed
-        // TODO add your handling code here:
-        x.eliminarX(JOptionPane.showInputDialog("HOLA PIBES"));
-        // Actualizar contador
-        llenar();
+        
+        tomarLibro();
     }//GEN-LAST:event_tomarLibroActionPerformed
 
     /**
