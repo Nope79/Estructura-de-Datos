@@ -10,8 +10,16 @@ public class Juan_LA_Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         
+        Fichero x = new Fichero();
+        
+        x.tokenizer(x.leerPrueba());
+        
+        /*x.escribirPrueba();
+        x.leerPrueba();*/
+        
+        // TODO code application logic here
+        /*
         Libro x = new Libro("papu", 2999, "pepe =D");
         
         System.out.println(x.getIsbn());
@@ -148,6 +156,6 @@ public class Juan_LA_Main {
         
         librero.eliminarX(null);
 
-        // ez
+        // ez*/
     }
 }
