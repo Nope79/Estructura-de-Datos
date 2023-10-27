@@ -2,9 +2,13 @@ package juan_la_estructuralibro;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -37,6 +41,8 @@ public class Librero extends javax.swing.JFrame {
         botones = new ArrayList<JButton>(); 
         
         filaLibros.setLayout(new GridLayout(1, x.getIndex()));
+        
+        cargar(leer());
     }
     
     public void quitar(){
@@ -348,7 +354,47 @@ public class Librero extends javax.swing.JFrame {
         reiniciar();
     }
     
-    public boolean validarX(){
+    
+    /*public void agregarX(String isbn, String titulo, String autor, String anne) {
+
+        if (validar() > 0) {
+
+            JOptionPane.showMessageDialog(null, "Lo sentimos, Ha llenado mal las casillas :( ... Intente de nuevo...");
+        } else {
+
+            String titulo = txtTitulo.getText();
+
+            int year = Integer.parseInt(txtYear.getText());
+            String autor = txtAutor.getText();
+            String isbn = lbISBN.getText();
+
+            if (x.add(new Libro(titulo, year, autor, isbn)) == true) {
+
+                JOptionPane.showMessageDialog(null, "¡Libro añadido exitosamente :D!");
+
+                reiniciar();
+
+                mostrar(x.getLibrero()[x.getIndex() - 1]);
+
+                llenar();
+
+                contLibros.setText(++contador + " Libros");
+
+                grabar();
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "¡Ya cuentas con este libro :0!");
+            }
+        }
+
+        reiniciar();
+    }
+    
+    public boolean validarX(String isbn, String titulo, String autor, String anne){
+        
+        if(isbn == "") return false;
+        if()
         
         if(txtTitulo.getText().equalsIgnoreCase("")) return false;
         if(lbISBN.getText().equalsIgnoreCase("ISBN")) return false;
@@ -362,7 +408,11 @@ public class Librero extends javax.swing.JFrame {
         }
         
         return true;
-    }
+    }*/
+    
+    
+    
+    
     
     public void llenar(){
         
@@ -415,6 +465,8 @@ public class Librero extends javax.swing.JFrame {
             contLibros.setText(--contador + " Libros");
 
             llenar();
+            
+            grabar();
         }else{
             
             JOptionPane.showMessageDialog(null, "Lo siento, usted ya no tiene libros para quitar :(");
@@ -441,12 +493,20 @@ public class Librero extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Libro eliminado :0" + "(" + nombre + ")");
 
                 llenar();
+                
+                grabar();
             }
         }else{
 
             JOptionPane.showMessageDialog(null, "Lo siente, usted no cuenta con ningún libro para tomar :(");
         }
     }
+    
+    
+    
+    
+    
+    
     
     
     
@@ -465,7 +525,7 @@ public class Librero extends javax.swing.JFrame {
 
             for (int i = 0; i < x.getIndex(); i++) {
 
-                temp = x.getLibrero()[i].getIsbn() + "#" + x.getLibrero()[i].getAuteur() + "#" + x.getLibrero()[i].getAuteur() + "#" + x.getLibrero()[i].getAnnée();
+                temp = x.getLibrero()[i].getIsbn() + "#" + x.getLibrero()[i].getTitre() + "#" + x.getLibrero()[i].getAuteur() + "#" + x.getLibrero()[i].getAnnée();
 
                 pw.println(temp);
             }
@@ -487,9 +547,100 @@ public class Librero extends javax.swing.JFrame {
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
+    public String leer() {
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        String x = "";
+
+        try {
+
+            archivo = new File("C:\\Users\\Master79\\Programación\\Estructura de Datos (Java)\\Juan_LA_EstructuraLibro\\fichero\\librero.txt");
+
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // LECTURA DEL ARCHIVO
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                x += linea + "#";
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+
+            try {
+
+                if (null != fr) {
+
+                    fr.close();
+                }
+
+            } catch (Exception e2) {
+
+                e2.printStackTrace();
+            }
+        }
+
+        System.out.println(x);
+        return x;
+    }
     
-    
+    public void cargar(String s){
+        
+        String isbn;
+        String titulo;
+        String autor;
+        int anne;
+        
+        StringTokenizer tokens = new StringTokenizer(s, "#");
+        
+        while(tokens.hasMoreTokens()){
+            
+            isbn = tokens.nextToken();
+            titulo = tokens.nextToken();
+            autor = tokens.nextToken();
+            anne = Integer.parseInt(tokens.nextToken());
+            
+            if(x.add(new Libro(titulo, anne, autor, isbn)) == true){
+                
+                JOptionPane.showMessageDialog(null, "¡Libro añadido exitosamente :D!");
+                
+                reiniciar();
+                
+                mostrar(x.getLibrero()[x.getIndex() - 1]);
+                
+                llenar();
+                
+                contLibros.setText(++contador + " Libros");
+                
+            }else{
+                
+                JOptionPane.showMessageDialog(null, "¡Ya cuentas con este libro :0!");
+            }
+        }
+        
+        grabar();
+    }
     
     
     
