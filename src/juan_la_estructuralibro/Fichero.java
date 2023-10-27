@@ -9,6 +9,8 @@ import java.util.StringTokenizer;
  */
 public class Fichero {
     
+    EstructuraLibros a = new EstructuraLibros();
+    
     // Ya tenemos metodos que leen y escriben, ahora necesito leer lo que se guarda en el tda de libros.
     // el programa debe ser capaza de que si yo modifico el texto, debe de modificarse la interfaz, por lo tanto, 
     // debo de importar acá el jframe para usar el metodo de guardado de libros.
@@ -40,6 +42,65 @@ public class Fichero {
     puedo hacer un metodo de escritura que lo unico que hace es escribir al agregar y otro para reescribir cuando se eliminan o toman libros.
     
     */
+    
+    ////////////////////////////////////////////////////////////////
+    
+    // Al agregar un libro necesito que escribir en el archivo
+    // Vamos a crear una funcion para escribir en el archivo usando el metodo de llenar que ya tenemos.
+    
+    
+    public void grabar(){
+        
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        
+        String temp = "";
+
+        try {
+
+            fichero = new FileWriter("C:\\Users\\Master79\\Programación\\Estructura de Datos (Java)\\Juan_LA_EstructuraLibro\\fichero\\librero.txt");
+            pw = new PrintWriter(fichero);
+            
+            for(int i = 0; i < a.getIndex(); i++){
+                
+                temp = a.getLibrero()[i].getIsbn() + "#" + a.getLibrero()[i].getAuteur() + "#" + a.getLibrero()[i].getAuteur() + "#" + a.getLibrero()[i].getAnnée();
+                
+                pw.println(temp);
+            }
+            
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+
+            try {
+
+                if (null != fichero) {
+
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+
+                e2.printStackTrace();
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //////////////////////////////////////////////// 
     
     public void tokenizer(String x){
         

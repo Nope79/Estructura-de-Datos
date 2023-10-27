@@ -13,10 +13,10 @@ public class Juan_LA_Main {
         
         Fichero x = new Fichero();
         
-        x.tokenizer(x.leerPrueba());
+        //x.tokenizer(x.leerPrueba());
         
-        /*x.escribirPrueba();
-        x.leerPrueba();*/
+        //x.escribirPrueba();
+        //x.leerPrueba();*/
         
         // TODO code application logic here
         /*

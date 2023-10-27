@@ -2,6 +2,8 @@ package juan_la_estructuralibro;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -17,6 +19,8 @@ public class Librero extends javax.swing.JFrame {
      */
     
     EstructuraLibros x;
+    
+    Fichero f = new Fichero();
     
     int contador = 0;
     
@@ -332,6 +336,9 @@ public class Librero extends javax.swing.JFrame {
                 llenar();
                 
                 contLibros.setText(++contador + " Libros");
+                
+                grabar();
+                
             }else{
                 
                 JOptionPane.showMessageDialog(null, "¡Ya cuentas con este libro :0!");
@@ -440,6 +447,69 @@ public class Librero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Lo siente, usted no cuenta con ningún libro para tomar :(");
         }
     }
+    
+    
+    
+    
+    public void grabar() {
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        String temp = "";
+
+        try {
+
+            fichero = new FileWriter("C:\\Users\\Master79\\Programación\\Estructura de Datos (Java)\\Juan_LA_EstructuraLibro\\fichero\\librero.txt");
+            pw = new PrintWriter(fichero);
+
+            for (int i = 0; i < x.getIndex(); i++) {
+
+                temp = x.getLibrero()[i].getIsbn() + "#" + x.getLibrero()[i].getAuteur() + "#" + x.getLibrero()[i].getAuteur() + "#" + x.getLibrero()[i].getAnnée();
+
+                pw.println(temp);
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+
+            try {
+
+                if (null != fichero) {
+
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+
+                e2.printStackTrace();
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -855,6 +925,7 @@ public class Librero extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
         agregar();
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtBusTitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusTitActionPerformed
