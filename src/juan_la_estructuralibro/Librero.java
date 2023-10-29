@@ -2,15 +2,11 @@ package juan_la_estructuralibro;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+import java.util.*;
+import java.io.*;
 
 /**
  *
@@ -298,12 +294,14 @@ public class Librero extends javax.swing.JFrame {
         if(txtTitulo.getText().equalsIgnoreCase("")) errores++;
         if(lbISBN.getText().equalsIgnoreCase("ISBN")) errores++;
         if(txtAutor.getText().equalsIgnoreCase("")) errores++;
+        
         try{
+            
             int num= Integer.parseInt(txtYear.getText());
-        }
-        catch(Exception e){
+        }catch(Exception e){
             errores++;
         }
+        
         return errores;
     }
     
@@ -354,66 +352,6 @@ public class Librero extends javax.swing.JFrame {
         reiniciar();
     }
     
-    
-    /*public void agregarX(String isbn, String titulo, String autor, String anne) {
-
-        if (validar() > 0) {
-
-            JOptionPane.showMessageDialog(null, "Lo sentimos, Ha llenado mal las casillas :( ... Intente de nuevo...");
-        } else {
-
-            String titulo = txtTitulo.getText();
-
-            int year = Integer.parseInt(txtYear.getText());
-            String autor = txtAutor.getText();
-            String isbn = lbISBN.getText();
-
-            if (x.add(new Libro(titulo, year, autor, isbn)) == true) {
-
-                JOptionPane.showMessageDialog(null, "¡Libro añadido exitosamente :D!");
-
-                reiniciar();
-
-                mostrar(x.getLibrero()[x.getIndex() - 1]);
-
-                llenar();
-
-                contLibros.setText(++contador + " Libros");
-
-                grabar();
-
-            } else {
-
-                JOptionPane.showMessageDialog(null, "¡Ya cuentas con este libro :0!");
-            }
-        }
-
-        reiniciar();
-    }
-    
-    public boolean validarX(String isbn, String titulo, String autor, String anne){
-        
-        if(isbn == "") return false;
-        if()
-        
-        if(txtTitulo.getText().equalsIgnoreCase("")) return false;
-        if(lbISBN.getText().equalsIgnoreCase("ISBN")) return false;
-        if(txtAutor.getText().equalsIgnoreCase("")) return false;
-        
-        try{
-            int num= Integer.parseInt(txtYear.getText());
-        }
-        catch(Exception e){
-            return false;
-        }
-        
-        return true;
-    }*/
-    
-    
-    
-    
-    
     public void llenar(){
         
         try{
@@ -428,6 +366,7 @@ public class Librero extends javax.swing.JFrame {
             }
             
         }catch(Exception e){
+            
             JOptionPane.showMessageDialog(null, e);
         }
         
@@ -440,15 +379,11 @@ public class Librero extends javax.swing.JFrame {
         
         public void actionPerformed(ActionEvent ae){
             
-            // identifica el elemento que se presionó
-            
             JButton botoncito = (JButton) (ae.getSource());
             
             String temporal = botoncito.getText();
             Libro obj = x.buscar(temporal);
             JOptionPane.showMessageDialog(null, obj.toString());
-
-            // literalmente lo unico que hace es mostrarte en pantalla los datos del libro que seleccionaste
         }
     };
     
@@ -502,15 +437,6 @@ public class Librero extends javax.swing.JFrame {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public void grabar() {
 
         FileWriter fichero = null;
@@ -518,51 +444,38 @@ public class Librero extends javax.swing.JFrame {
 
         String temp = "";
 
-        try {
+        try{
 
             fichero = new FileWriter("C:\\Users\\Master79\\Programación\\Estructura de Datos (Java)\\Juan_LA_EstructuraLibro\\fichero\\librero.txt");
+            
             pw = new PrintWriter(fichero);
 
-            for (int i = 0; i < x.getIndex(); i++) {
+            for(int i = 0; i < x.getIndex(); i++){
 
                 temp = x.getLibrero()[i].getIsbn() + "#" + x.getLibrero()[i].getTitre() + "#" + x.getLibrero()[i].getAuteur() + "#" + x.getLibrero()[i].getAnnée();
 
                 pw.println(temp);
             }
-
-        } catch (Exception e) {
+            
+        }catch(Exception e){
 
             e.printStackTrace();
-        } finally {
+        }finally{
+            
+            try{
 
-            try {
-
-                if (null != fichero) {
+                if(null != fichero){
 
                     fichero.close();
                 }
-            } catch (Exception e2) {
+            }catch(Exception e2){
 
                 e2.printStackTrace();
             }
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    public String leer() {
+    public String leer(){
 
         File archivo = null;
         FileReader fr = null;
@@ -570,7 +483,7 @@ public class Librero extends javax.swing.JFrame {
 
         String x = "";
 
-        try {
+        try{
 
             archivo = new File("C:\\Users\\Master79\\Programación\\Estructura de Datos (Java)\\Juan_LA_EstructuraLibro\\fichero\\librero.txt");
 
@@ -579,23 +492,22 @@ public class Librero extends javax.swing.JFrame {
 
             // LECTURA DEL ARCHIVO
             String linea;
-            while ((linea = br.readLine()) != null) {
+            while ((linea = br.readLine()) != null){
 
                 x += linea + "#";
             }
-        } catch (Exception e) {
+        }catch(Exception e){
 
             e.printStackTrace();
-        } finally {
+        }finally{
 
-            try {
+            try{
 
-                if (null != fr) {
+                if(null != fr){
 
                     fr.close();
                 }
-
-            } catch (Exception e2) {
+            }catch(Exception e2){
 
                 e2.printStackTrace();
             }
@@ -623,7 +535,7 @@ public class Librero extends javax.swing.JFrame {
             
             if(x.add(new Libro(titulo, anne, autor, isbn)) == true){
                 
-                JOptionPane.showMessageDialog(null, "¡Libro añadido exitosamente :D!");
+                JOptionPane.showMessageDialog(null, "¡Se ha encontrado un nuevo libro... WOW :o!");
                 
                 reiniciar();
                 
@@ -635,32 +547,14 @@ public class Librero extends javax.swing.JFrame {
                 
             }else{
                 
-                JOptionPane.showMessageDialog(null, "¡Ya cuentas con este libro :0!");
+                JOptionPane.showMessageDialog(null, "¡Tenía un libro repetido y lo quemamos por usdet :D!");
             }
         }
         
         grabar();
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    // borre un metodo de buscar lol
     
     /**
      * This method is called from within the constructor to initialize the form.
