@@ -23,6 +23,10 @@ public class Empleado {
         this.apeMaterno = apeMaterno;
         this.id = genId();
     }
+    
+    public Empleado(){
+        
+    }
 
     public String getNombre() {
         return nombre;

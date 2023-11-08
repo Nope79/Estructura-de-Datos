@@ -8,7 +8,12 @@ public class Elemento {
     
     private Empleado employed;
     private Elemento next;
-    private int size;
+
+    public Elemento(Empleado employed) {
+        
+        this.employed = employed;
+        this.next = null;
+    }
 
     public Empleado getEmployed() {
         return employed;
@@ -24,13 +29,5 @@ public class Elemento {
 
     public void setNext(Elemento next) {
         this.next = next;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 }
